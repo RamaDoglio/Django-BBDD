@@ -1,25 +1,26 @@
 from django.contrib import admin
+
 from .models import (
     Cliente,
-    MetodoPago,
     Cobro,
-    TipoPlato,
-    HorarioTurno,
-    Servicio,
-    RolEmpleado,
-    Empleado,
-    Sector,
-    Mesa,
-    Pedido,
-    Turno,
-    Plato,
-    Factura,
-    EstadoReserva,
-    Reserva,
-    DetalleReserva,
-    DetallePedido,
     DetalleFactura,
-    ExS,
+    DetallePedido,
+    DetalleReserva,
+    Empleado,
+    EmpleadoxSector,
+    EstadoReserva,
+    Factura,
+    HorarioTurno,
+    Mesa,
+    MetodoPago,
+    Pedido,
+    Plato,
+    Reserva,
+    RolEmpleado,
+    Sector,
+    Servicio,
+    TipoPlato,
+    Turno,
 )
 
 admin.site.register(Cliente)
@@ -41,4 +42,4 @@ admin.site.register(Reserva)
 admin.site.register(DetalleReserva)
 admin.site.register(DetallePedido)
 admin.site.register(DetalleFactura)
-admin.site.register(ExS)
+admin.site.register(EmpleadoxSector)

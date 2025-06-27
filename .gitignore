@@ -8,7 +8,6 @@ venv/
 env/
 .venv/
 .env/
-.env.*  # por ejemplo .env.db
 
 # Django stuff
 *.log
@@ -35,3 +34,4 @@ docker-compose.override.yml
 .DS_Store
 .Trashes
 .idea/
+
