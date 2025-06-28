@@ -1,12 +1,16 @@
-# Django-BBDD
+# 🐍 Django + BBDD (PostgreSQL → MongoDB)
 
-https://github.com/pindutn/fabrica_pastas/tree/main
+Repositorio profe: [fabrica_pastas](https://github.com/pindutn/fabrica_pastas/tree/main)
 
-## PASOS
+Este proyecto te guía para levantar una app Django usando Docker, conectarla inicialmente a PostgreSQL y luego migrar todo a MongoDB usando `djongo`.
 
-### 1. Generar los proyectos
+---
 
-```sh
+## 🚀 Puesta en marcha (con PostgreSQL)
+
+### 1. Generar los proyectos y levantar el backend
+
+```bash
 docker compose run --rm generate
 sudo chown $USER:$USER -R .
 docker compose up -d backend
@@ -14,21 +18,23 @@ docker compose up -d backend
 
 ### 2. Migrar la base de datos
 
-```sh
+```bash
 docker compose run --rm manage makemigrations
 docker compose run --rm manage migrate
 ```
 
-### 3. Crear superusuario
+### 3. Crear un superusuario
 
-```sh
+```bash
 docker compose run --rm manage createsuperuser
 ```
 
-### 4. Cargar datos
+### 4. Cargar datos iniciales
 
-```sh
+```bash
 docker compose run --rm manage loaddata initial_data
 ```
 
-Ahora podes ir a localhost:8000/admin, loguearte con el usuario que creaste antes y crear o ver objetos!!
+👉 Ahora podés ingresar a [http://localhost:8000/admin](http://localhost:8000/admin) y loguearte con el usuario creado para administrar los objetos.
+
+---
