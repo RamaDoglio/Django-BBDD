@@ -1,2 +1,0 @@
-[ ] Crear un archivo que precargue datos, el tutorial está en el repo del profe, adaptar los json a lo que nosotros pedimos
-[ ] Revisar las condiciones de eliminación, puse CASCADE para que me dejara  hacer las migraciones

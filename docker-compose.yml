@@ -17,6 +17,20 @@ services:
     ports:
       - "6666:5432"
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+      - MONGO_INITDB_DATABASE=mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - net
+
   backend:
     build: .
     command: runserver 0.0.0.0:8000
@@ -67,4 +81,4 @@ networks:
 
 volumes:
   postgres-db:
-
+  mongo-data:
