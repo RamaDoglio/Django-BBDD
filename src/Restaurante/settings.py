@@ -76,6 +76,12 @@ WSGI_APPLICATION = "Restaurante.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS", "*")]
+DATABASE_ENGINE = os.environ.get("DATABASE_ENGINE", "")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "")
+POSTGRES_DB = os.environ.get("POSTGRES_DB", "") or os.getenv("DB_NAME")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "") or os.getenv("DB_HOST")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT", "") or os.getenv("DB_PORT")
 # Configuración de la base de datos
 DATABASES = {
     "default": {
@@ -88,7 +94,15 @@ DATABASES = {
             "password": "mongo",
             "authSource": "admin",  # Importante para autenticación
         },
-    }
+    },
+    "old_db": {
+        "ENGINE": DATABASE_ENGINE,
+        "NAME": POSTGRES_DB,
+        "USER": POSTGRES_USER,
+        "PASSWORD": POSTGRES_PASSWORD,
+        "HOST": POSTGRES_HOST,
+        "PORT": POSTGRES_PORT,
+    },
 }
 
 

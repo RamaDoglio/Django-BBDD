@@ -1,12 +1,16 @@
-# Django-BBDD
+# 🐍 Django + BBDD (PostgreSQL → MongoDB)
 
-https://github.com/pindutn/fabrica_pastas/tree/main
+Repositorio profe: [fabrica_pastas](https://github.com/pindutn/fabrica_pastas/tree/main)
 
-## PASOS
+Este proyecto te guía para levantar una app Django usando Docker, conectarla inicialmente a PostgreSQL y luego migrar todo a MongoDB usando `djongo`.
 
-### 1. Generar los proyectos
+---
 
-```sh
+## 🚀 Puesta en marcha (con PostgreSQL)
+
+### 1. Generar los proyectos y levantar el backend
+
+```bash
 docker compose run --rm generate
 sudo chown $USER:$USER -R .
 docker compose up -d backend
@@ -14,97 +18,118 @@ docker compose up -d backend
 
 ### 2. Migrar la base de datos
 
-```sh
+```bash
 docker compose run --rm manage makemigrations
 docker compose run --rm manage migrate
 ```
 
-### 3. Crear superusuario
+### 3. Crear un superusuario
 
-```sh
+```bash
 docker compose run --rm manage createsuperuser
 ```
 
-### 4. Cargar datos
+### 4. Cargar datos iniciales
 
-```sh
+```bash
 docker compose run --rm manage loaddata initial_data
 ```
 
-Ahora podes ir a localhost:8000/admin, loguearte con el usuario que creaste antes y crear o ver objetos!!
+👉 Ahora podés ingresar a [http://localhost:8000/admin](http://localhost:8000/admin) y loguearte con el usuario creado para administrar los objetos.
 
-# Migrar todo a mongodb
+---
 
-### 1. Añadir el servicio de mongodb al docker compose
+## 🔄 Migración a MongoDB
 
-```docker
- mongo:
-    image: mongo:latest
-    container_name: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=mongo
-      - MONGO_INITDB_ROOT_PASSWORD=mongo
-      - MONGO_INITDB_DATABASE=mongo
-    volumes:
-      - mongo-data:/data/db
-    ports:
-      - "27017:27017"
-    networks:
-      - net
+### 1. Agregar MongoDB en el `docker-compose.yml`
 
- volumes:
+```yaml
+mongo:
+  image: mongo:latest
+  container_name: mongo
+  environment:
+    - MONGO_INITDB_ROOT_USERNAME=mongo
+    - MONGO_INITDB_ROOT_PASSWORD=mongo
+    - MONGO_INITDB_DATABASE=mongo
+  volumes:
+    - mongo-data:/data/db
+  ports:
+    - "27017:27017"
+  networks:
+    - net
+
+volumes:
   mongo-data:
 ```
 
-### 2. Cambiar la primera linea del models.py
+### 2. Modificar el `models.py`
+
+Reemplazá la importación de `models` por:
 
 ```python
 from djongo import models
 ```
 
-### 3. Cambiar la conexion con la base de datos en settings.py
+### 3. Cambiar la configuración de la base de datos en `settings.py`
 
 ```python
 DATABASES = {
-"default": {
-"ENGINE": "djongo",
-"NAME": "mongo",
-"CLIENT": {
-"host": "mongo",
-"port": 27017,
-"username": "mongo",
-"password": "mongo",
-"authSource": "admin", # Importante para autenticación
-},
-}
+    "default": {
+        "ENGINE": "djongo",
+        "NAME": "mongo",
+        "CLIENT": {
+            "host": "mongo",
+            "port": 27017,
+            "username": "mongo",
+            "password": "mongo",
+            "authSource": "admin",  # Importante para autenticación
+        },
+    },
+    "old_db": {
+        "ENGINE": DATABASE_ENGINE,
+        "NAME": POSTGRES_DB,
+        "USER": POSTGRES_USER,
+        "PASSWORD": POSTGRES_PASSWORD,
+        "HOST": POSTGRES_HOST,
+        "PORT": POSTGRES_PORT,
+    },
 }
 ```
 
-### 4. Eliminar todos los archivos en la carpeta app/migrations/ hechos anteriormente menos el **init.py**
+### 4. Limpiar migraciones anteriores
 
-### 5. Buildear todo de nuevo
+Eliminá todos los archivos dentro de `app/migrations/`, excepto el `__init__.py`.
+
+### 5. Reconstruir la imagen Docker
 
 ```bash
 docker compose build
 ```
 
-### 6. Levantar la base de datos mongodb
+### 6. Levantar servicios con MongoDB
 
 ```bash
 docker compose up -d
 ```
 
-### 7. Migrar los modelos para mongodb
+### 7. Migrar modelos a MongoDB
 
 ```bash
 docker compose run manage makemigrations
 docker compose run manage migrate
 ```
 
-### 8. Crear superusuario
+### 8. Crear nuevamente el superusuario
 
-```sh
+```bash
 docker compose run --rm manage createsuperuser
 ```
 
-### 9.
+### 9. Ejecutar el comando personalizado de migración
+
+```bash
+docker compose run --rm manage migrate_to_mongo
+```
+
+✅ ¡Listo! Ahora los datos fueron migrados exitosamente a **MongoDB**.  
+Podés corroborarlo accediendo nuevamente a [http://localhost:8000/admin](http://localhost:8000/admin) con las credenciales del paso anterior.
