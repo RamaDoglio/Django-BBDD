@@ -1,0 +1,177 @@
+[
+  {
+    "model": "portal.cliente",
+    "pk": 1,
+    "fields": {
+      "nombre": "Juan",
+      "apellido": "Pérez"
+    }
+  },
+  {
+    "model": "portal.metodopago",
+    "pk": 1,
+    "fields": {
+      "nombre": "Efectivo",
+      "descripcion": "Pago en efectivo"
+    }
+  },
+  {
+    "model": "portal.tipoplato",
+    "pk": 1,
+    "fields": {
+      "nombre": "Principal",
+      "descripcion": "Plato principal"
+    }
+  },
+  {
+    "model": "portal.plato",
+    "pk": 1,
+    "fields": {
+      "nombre": "Milanesa",
+      "descripcion": "Milanesa con papas fritas",
+      "idTipoPlato": 1,
+      "precioUnitario": 2500.0
+    }
+  },
+  {
+    "model": "portal.servicio",
+    "pk": 1,
+    "fields": {
+      "nombre": "Almuerzo",
+      "descripcion": "Servicio de almuerzo"
+    }
+  },
+  {
+    "model": "portal.horarioturno",
+    "pk": 1,
+    "fields": {
+      "horaInicio": "12:00:00",
+      "horaFin": "16:00:00"
+    }
+  },
+  {
+    "model": "portal.turno",
+    "pk": 1,
+    "fields": {
+      "idHorarioTurno": 1,
+      "idServicio": 1
+    }
+  },
+  {
+    "model": "portal.rolempleado",
+    "pk": 1,
+    "fields": {
+      "nombre": "Mozo"
+    }
+  },
+  {
+    "model": "portal.empleado",
+    "pk": 1,
+    "fields": {
+      "idRol": 1,
+      "nombre": "Carlos"
+    }
+  },
+  {
+    "model": "portal.sector",
+    "pk": 1,
+    "fields": {
+      "nombre": "Salón",
+      "descripcion": "Sector principal"
+    }
+  },
+  {
+    "model": "portal.mesa",
+    "pk": 1,
+    "fields": {
+      "numero": 1,
+      "capacidad": 4,
+      "idSector": 1
+    }
+  },
+  {
+    "model": "portal.pedido",
+    "pk": 1,
+    "fields": {
+      "idMesa": 1,
+      "idEmpleado": 1,
+      "fechaHoraEntrega": "2025-06-28T13:30:00",
+      "fechaHoraPedido": "2025-06-28T13:00:00"
+    }
+  },
+  {
+    "model": "portal.cobro",
+    "pk": 1,
+    "fields": {
+      "idMetodoPago": 1,
+      "fecha": "2025-06-28",
+      "hora": "13:35:00",
+      "total": 2500.0
+    }
+  },
+  {
+    "model": "portal.factura",
+    "pk": 1,
+    "fields": {
+      "fecha": "2025-06-28",
+      "hora": "13:36:00",
+      "idCliente": 1,
+      "idCobro": 1,
+      "total": 2500.0,
+      "idPedido": 1
+    }
+  },
+  {
+    "model": "portal.detallepedido",
+    "pk": 1,
+    "fields": {
+      "idPlato": 1,
+      "idPedido": 1,
+      "cantidad": 1,
+      "subTotal": 2500.0
+    }
+  },
+  {
+    "model": "portal.detallefactura",
+    "pk": 1,
+    "fields": {
+      "idPlato": 1,
+      "idFactura": 1,
+      "cantidad": 1,
+      "subTotal": 2500.0
+    }
+  },
+  {
+    "model": "portal.estadoreserva",
+    "pk": 1,
+    "fields": {
+      "nombre": "Confirmada"
+    }
+  },
+  {
+    "model": "portal.reserva",
+    "pk": 1,
+    "fields": {
+      "fechaRealizacionReserva": "2025-06-27",
+      "idCliente": 1,
+      "idTurno": 1,
+      "idEstadoReserva": 1
+    }
+  },
+  {
+    "model": "portal.detallereserva",
+    "pk": 1,
+    "fields": {
+      "idReserva": 1,
+      "idMesa": 1
+    }
+  },
+  {
+    "model": "portal.empleadoxsector",
+    "pk": 1,
+    "fields": {
+      "idEmpleado": 1,
+      "idSector": 1
+    }
+  }
+]
