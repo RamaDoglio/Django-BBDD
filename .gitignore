@@ -22,7 +22,6 @@ staticfiles/
 
 # Docker
 *.pid
-*.db
 docker-compose.override.yml
 
 # Local backups
